@@ -43,6 +43,33 @@ router.post('/', (req, res) => {
     })
 })
 
+// update car
+router.put('/:id', (req, res) => {
+    const id = req.params.id;
+    const updates = req.body;
+
+    db('cars').where({id}).update(updates)
+    .then(count => {
+        res.status(200).json(count)
+    })
+    .catch(err => {
+        res.status(500).json({message: err.message})
+    })
+})
+
+// delete car
+router.delete('/:id', (req, res) => {
+    const id = req.params.id;
+
+    db('cars').where({id}).del()
+    .then(count => {
+        res.status(200).json(count)
+    })
+    .catch(err => {
+        res.status(500).json({message: err.message})
+    })
+})
+
 module.exports = router;
 
 function getById(id) {
