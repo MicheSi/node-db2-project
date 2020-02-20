@@ -5,9 +5,12 @@ exports.up = function(knex) {
 
         tbl
             .integer('car_id')
+            .unsigned()
             .references('id')
             .inTable('cars')
-            .notNullable();
+            .notNullable()
+            .onUpdate('CASCADE')
+            .onDelete('RESTRICT')
         
         tbl.integer('Price');
 
